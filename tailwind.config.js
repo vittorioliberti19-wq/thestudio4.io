@@ -1,5 +1,10 @@
 module.exports = {
-  content: ["./index.html", "./galeria.html"],
+  content: [
+    "./index.html",
+    "./galeria.html",
+    "./servicios/*.html",
+    "./blog/**/*.html",
+  ],
   theme: {
     extend: {
       fontFamily: {

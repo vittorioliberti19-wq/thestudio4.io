@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es-VE">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+
+    <title>Blog | The Studio 4 — Estudio Fotográfico en Maracaibo</title>
+    <meta
+      name="description"
+      content="Artículos sobre alquiler de estudio fotográfico, producción audiovisual, fotografía de producto y consejos para creadores de contenido en Maracaibo, Venezuela."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://thestudio4.io/blog/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blog | The Studio 4" />
+    <meta
+      property="og:description"
+      content="Artículos sobre fotografía y producción audiovisual en Maracaibo."
+    />
+    <meta property="og:image" content="https://thestudio4.io/og-image.jpg" />
+    <meta property="og:url" content="https://thestudio4.io/blog/" />
+
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/tailwind.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "@id": "https://thestudio4.io/blog/#blog",
+        "name": "Blog The Studio 4",
+        "description": "Artículos sobre fotografía, producción audiovisual y alquiler de estudio en Maracaibo.",
+        "url": "https://thestudio4.io/blog/",
+        "publisher": { "@id": "https://thestudio4.io/#organization" }
+      }
+    </script>
+
+    <style>
+      :root {
+        --ink: #000;
+        --paper: #fff;
+        --hair: rgba(255, 255, 255, 0.12);
+      }
+      html,
+      body {
+        background: var(--ink);
+      }
+      body {
+        color: var(--paper);
+        font-family: "Montserrat", system-ui, sans-serif;
+      }
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+      .micro {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .display {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+      }
+      .hairline {
+        border-color: var(--hair);
+      }
+      .post-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .post-card:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .nav-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .nav-link:hover {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-2 bg-black/60 backdrop-blur-md border-b hairline"
+    >
+      <div
+        class="max-w-[1600px] mx-auto flex items-center justify-between gap-4"
+      >
+        <a href="/">
+          <img src="/logo.png" alt="The Studio 4" class="h-10 md:h-14 invert" />
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="/" class="nav-link">← Inicio</a>
+          <a href="/galeria.html" class="nav-link hidden sm:inline">Galería</a>
+          <a href="/#reservar" class="nav-link">Reservar</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-28 md:pt-36 pb-24 px-4 md:px-8">
+      <div class="max-w-[1100px] mx-auto">
+        <header class="mb-16">
+          <div class="micro mb-4">[ BLOG · THE STUDIO 4 ]</div>
+          <h1 class="display text-[12vw] md:text-[6vw] leading-[0.9]">BLOG</h1>
+          <p
+            class="mt-6 text-white/70 text-sm md:text-base max-w-2xl leading-relaxed"
+          >
+            Artículos prácticos sobre fotografía, producción audiovisual y
+            alquiler de estudio en Maracaibo. Aprende a sacar el máximo provecho
+            de tu próxima sesión.
+          </p>
+        </header>
+
+        <ul class="grid md:grid-cols-2 gap-4">
+          <li>
+            <a
+              href="/blog/como-elegir-estudio-fotografico-maracaibo.html"
+              class="post-card block p-6 md:p-8"
+            >
+              <div class="micro mb-4">25 ABR 2026 · GUÍA</div>
+              <h2 class="display text-2xl md:text-3xl mb-4 leading-tight">
+                Cómo elegir un estudio<br />fotográfico en Maracaibo
+              </h2>
+              <p class="text-white/70 text-sm leading-relaxed">
+                Guía completa 2026: qué evaluar al alquilar un estudio, qué
+                equipos debe incluir, precios reales del mercado y errores
+                comunes a evitar.
+              </p>
+              <div class="mt-6 micro">LEER →</div>
+            </a>
+          </li>
+        </ul>
+
+        <section class="mt-24 border-t hairline pt-16">
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <div class="micro mb-4">[ TU SESIÓN ]</div>
+              <h2 class="display text-3xl md:text-4xl leading-tight mb-5">
+                ¿Listo para producir<br />en The Studio 4?
+              </h2>
+              <p class="text-white/70 mb-8 text-sm md:text-base">
+                Reserva el estudio por hora, media jornada o día completo.
+              </p>
+              <a
+                href="/#reservar"
+                class="inline-block bg-white text-black mono text-[11px] tracking-widest uppercase px-6 py-4 hover:bg-white/90 transition"
+                >Reservar →</a
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t hairline px-4 md:px-8 py-8">
+      <div
+        class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 micro opacity-60"
+      >
+        <div>© 2026 The Studio 4 — Maracaibo, Venezuela</div>
+        <div>
+          <a href="/" class="hover:text-white">Inicio</a>
+          <span class="mx-2 opacity-40">·</span>
+          <a href="/galeria.html" class="hover:text-white">Galería</a>
+          <span class="mx-2 opacity-40">·</span>
+          <a href="/blog/" class="hover:text-white">Blog</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
