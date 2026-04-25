@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="es-VE">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+
+    <title>Galería | The Studio 4 — Estudio Fotográfico en Maracaibo</title>
+    <meta
+      name="description"
+      content="Galería completa de sesiones fotográficas y producciones audiovisuales realizadas en The Studio 4, Maracaibo. Sesiones editoriales, retratos, contenido para marcas y reels."
+    />
+    <meta
+      name="keywords"
+      content="galería The Studio 4, fotos estudio Maracaibo, portafolio fotografía Maracaibo, sesiones fotográficas Zulia, estudio audiovisual Maracaibo"
+    />
+    <meta name="author" content="The Studio 4" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="geo.region" content="VE-V" />
+    <meta name="geo.placename" content="Maracaibo, Zulia, Venezuela" />
+    <meta name="geo.position" content="10.674;-71.617" />
+    <link rel="canonical" href="https://thestudio4.io/galeria.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_VE" />
+    <meta property="og:site_name" content="The Studio 4" />
+    <meta
+      property="og:title"
+      content="Galería | The Studio 4 — Estudio Fotográfico en Maracaibo"
+    />
+    <meta
+      property="og:description"
+      content="Galería completa de sesiones realizadas en The Studio 4, Maracaibo."
+    />
+    <meta property="og:image" content="https://thestudio4.io/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://thestudio4.io/galeria.html" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Galería | The Studio 4" />
+    <meta
+      name="twitter:description"
+      content="Sesiones fotográficas y reels producidos en The Studio 4, Maracaibo."
+    />
+    <meta name="twitter:image" content="https://thestudio4.io/og-image.jpg" />
+
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="tailwind.css" />
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": "https://thestudio4.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Galería",
+            "item": "https://thestudio4.io/galeria.html"
+          }
+        ]
+      }
+    </script>
+
+    <!-- JSON-LD: ImageGallery / CollectionPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["CollectionPage", "ImageGallery"],
+        "name": "Galería — The Studio 4",
+        "description": "Sesiones fotográficas y producciones audiovisuales realizadas en The Studio 4, Maracaibo.",
+        "url": "https://thestudio4.io/galeria.html",
+        "inLanguage": "es-VE",
+        "isPartOf": { "@id": "https://thestudio4.io/#website" },
+        "about": { "@id": "https://thestudio4.io/#business" }
+      }
+    </script>
+
+    <style>
+      :root {
+        --ink: #000;
+        --paper: #fff;
+        --hair: rgba(255, 255, 255, 0.12);
+      }
+      html,
+      body {
+        background: var(--ink);
+      }
+      body {
+        color: var(--paper);
+        font-family: "Montserrat", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      ::selection {
+        background: #fff;
+        color: #000;
+      }
+      .sr-only {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.02em;
+      }
+      .micro {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .display {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+      }
+      .hairline {
+        border-color: var(--hair);
+      }
+      .gallery-tile {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background: #0a0a0a;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        cursor: pointer;
+      }
+      .gallery-tile img,
+      .gallery-tile video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition:
+          transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+          filter 0.7s ease;
+        filter: grayscale(0.15);
+      }
+      .gallery-tile:hover img,
+      .gallery-tile:hover video {
+        transform: scale(1.05);
+        filter: grayscale(0);
+      }
+      .nav-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .nav-link:hover {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <a href="#main" class="sr-only">Saltar al contenido principal</a>
+
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-2 bg-black/60 backdrop-blur-md border-b hairline"
+    >
+      <div
+        class="max-w-[1600px] mx-auto flex items-center justify-between gap-4"
+      >
+        <a href="/" aria-label="The Studio 4 — Inicio">
+          <img src="logo.png" alt="The Studio 4" class="h-10 md:h-14 invert" />
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="/" class="nav-link">← Inicio</a>
+          <a href="/#reservar" class="nav-link">Reservar</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main" class="pt-28 md:pt-32 pb-24 px-4 md:px-8">
+      <div class="max-w-[1600px] mx-auto">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="mb-10">
+          <ol class="flex items-center gap-2 micro">
+            <li><a href="/" class="hover:text-white">Inicio</a></li>
+            <li class="opacity-40">/</li>
+            <li class="text-white">Galería</li>
+          </ol>
+        </nav>
+
+        <header class="mb-16">
+          <div class="micro mb-4">[ PORTFOLIO · 2024–2026 ]</div>
+          <h1 class="display text-[12vw] md:text-[7vw] leading-[0.9]">
+            GALERÍA
+          </h1>
+          <p
+            class="mt-6 max-w-2xl text-white/70 text-sm md:text-base leading-relaxed"
+          >
+            Sesiones fotográficas, retratos editoriales, contenido para marcas y
+            reels producidos en The Studio 4 — estudio fotográfico y audiovisual
+            en Maracaibo, Zulia. Cada imagen y video se realizó en nuestro
+            espacio con ciclograma blanco, fondos profesionales e iluminación
+            Godox y Neewer.
+          </p>
+        </header>
+
+        <section
+          aria-label="Galería de fotografías y videos"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3"
+        >
+          <div class="gallery-tile">
+            <video
+              src="media/equipos.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/17_DUJY9gFjzr3.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/13_DUi7uO8DgBr.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/23_DS2dbH1ju9H_02.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/16_DURAtMpj8Zd_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/14_DUayo9RjsWq.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/23_DS2dbH1ju9H_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/15_DUWCGmrDgiQ_03.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/21_DTQCpyejp1v_02.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/16_DURAtMpj8Zd_02.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/20_DTYnw_pj9Rn_02.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/20_DTYnw_pj9Rn_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/19_DTk6CPvjk5y.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/21_DTQCpyejp1v_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/16_DURAtMpj8Zd_03.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/22_DS7rHvVDiSK.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/15_DUWCGmrDgiQ_02.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/16_DURAtMpj8Zd_04.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/20_DTYnw_pj9Rn_03.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/32_DSVCfEUDlUU_03.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/photo_DU8TRIhjo35.webp"
+              alt="Behind the scenes en The Studio 4 — estudio fotográfico Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/photo_DUwU_g1DOMb.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/49943234098_DWZWqHlEbgF.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/photo_DVRCs5QDmR0.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/61642489948_DU_Weqej_CS.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/photo_DWg2OkOlAss.webp"
+              alt="Behind the scenes en The Studio 4 — estudio fotográfico Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/61642489948_DVn9V0IDF-K.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/61642489948_DWmFp5YDeWt.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/61642489948_DXE83xUjrzk.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/NA_DWg1Z4DCiVr.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/78317547062_DXIg7kLkXnV.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/24_DSvLyNpDzx6_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/32_DSVCfEUDlUU_01.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <img
+              src="media/24_DSvLyNpDzx6_02.webp"
+              alt="Sesión fotográfica en The Studio 4, estudio fotográfico en Maracaibo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/30_DSV_GnBjc8v.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+          <div class="gallery-tile">
+            <video
+              src="media/61642489948_DVn9V0IDF-K.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+        </section>
+
+        <section class="mt-24 border-t hairline pt-16">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div class="micro mb-4">[ TU SESIÓN ]</div>
+              <h2 class="display text-4xl md:text-5xl leading-tight mb-6">
+                ¿Listo para producir<br />tu próxima sesión?
+              </h2>
+              <p
+                class="text-white/70 text-sm md:text-base leading-relaxed mb-8"
+              >
+                Reserva el estudio por hora, media jornada o día completo.
+                Equipos profesionales incluidos, ciclograma blanco infinito y
+                todo lo que tu producción necesita.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/#reservar"
+                  class="inline-block bg-white text-black mono text-[11px] tracking-widest uppercase px-6 py-4 hover:bg-white/90 transition"
+                >
+                  Reservar sesión →
+                </a>
+                <a
+                  href="https://wa.me/584246417634"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-block border border-white/20 text-white mono text-[11px] tracking-widest uppercase px-6 py-4 hover:border-white transition"
+                >
+                  WhatsApp directo
+                </a>
+              </div>
+            </div>
+            <div class="micro space-y-3 opacity-70">
+              <div>[ THE STUDIO 4 · MARACAIBO ]</div>
+              <div>Piso 2, Torre Delta</div>
+              <div>Av. Bella Vista, Maracaibo 4001</div>
+              <div>Zulia, Venezuela</div>
+              <div class="pt-3">+58 424-6417634</div>
+              <div>
+                <a
+                  href="https://www.instagram.com/thestudio4.ve/"
+                  target="_blank"
+                  rel="noopener"
+                  class="hover:text-white"
+                  >@thestudio4.ve</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t hairline px-4 md:px-8 py-8">
+      <div
+        class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 micro opacity-60"
+      >
+        <div>© 2026 The Studio 4 — Maracaibo, Venezuela</div>
+        <div>
+          <a href="/" class="hover:text-white">Inicio</a>
+          <span class="mx-2 opacity-40">·</span>
+          <a href="/#servicios" class="hover:text-white">Servicios</a>
+          <span class="mx-2 opacity-40">·</span>
+          <a href="/#reservar" class="hover:text-white">Reservar</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

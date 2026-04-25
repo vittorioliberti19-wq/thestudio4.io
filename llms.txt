@@ -1,63 +1,142 @@
 # The Studio 4
 
-> Estudio fotográfico y de producción audiovisual en Maracaibo, Venezuela.
-> Alquiler de estudio por hora, media jornada o día completo. Equipos profesionales incluidos.
+> Estudio fotográfico y de producción audiovisual en Maracaibo, Zulia, Venezuela. Alquiler de estudio por hora, media jornada o día completo. Equipos profesionales incluidos.
 
-## Ubicación
-- Dirección: Piso 2, Torre Delta, Av. Bella Vista, Maracaibo 4001, Zulia, Venezuela
-- Teléfono / WhatsApp: +58 424-6417634
-- Instagram: @thestudio4.ve
-- Google Maps: https://maps.app.goo.gl/K7AjEFUzqV5CuqHU9
+The Studio 4 (también conocido como Studio 4 Maracaibo o thestudio4.ve) es un estudio fotográfico profesional ubicado en Maracaibo, Venezuela. Se especializa en alquiler de espacio para sesiones de fotografía editorial, retrato, contenido para marcas, video corporativo, e-commerce de productos y producción audiovisual. Incluye ciclograma blanco infinito de concreto, fondos de papel y tela, iluminación profesional Godox y Neewer, y comodidades para producciones largas. Sirve a fotógrafos, productoras, marcas y creadores de contenido en Maracaibo, Zulia y todo el occidente de Venezuela.
 
-## Servicios y precios
+## Información de contacto
 
-### Alquiler por hora
-- Lunes a Viernes (8 AM – 5 PM): $45/hora
-- Lunes a Viernes nocturno (5 PM – 9 PM): $50/hora
-- Sábado, Domingo y feriados (8 AM – 9 PM): $55/hora
+- **Sitio web**: https://thestudio4.io/
+- **Dirección física**: Piso 2, Torre Delta, Av. Bella Vista, Maracaibo 4001, Zulia, Venezuela
+- **Coordenadas GPS**: 10.674, -71.617
+- **Teléfono / WhatsApp**: +58 424-6417634
+- **WhatsApp directo**: https://wa.me/584246417634
+- **Instagram**: https://www.instagram.com/thestudio4.ve/ (@thestudio4.ve)
+- **Google Maps**: https://maps.app.goo.gl/K7AjEFUzqV5CuqHU9
+- **Calificación Google**: 5.0★ (3 reseñas)
+- **Año de inicio**: 2023
+- **Idiomas**: Español
+- **Monedas aceptadas**: USD, VES (bolívares)
+- **Métodos de pago**: Efectivo, transferencia, pago móvil, Zelle
 
-### Media jornada (4 horas)
-- L-V día (8 AM-12 PM o 1-5 PM): $160 — hora extra $45
-- L-V nocturno (5-9 PM): $180 — hora extra $45
-- Sáb/Dom día: $180 — hora extra $45
-- Sáb/Dom nocturno: $200 — hora extra $45
+## Servicios y precios (USD, vigentes 2026)
 
-### Día completo (8 AM – 5 PM)
-- L-V: $300 — hora extra $45
-- Sáb/Dom y feriados: $380 — hora extra $45
+### Alquiler de estudio por hora
 
-### Equipo en alquiler adicional
-- Cámara Panasonic Lumix G95 + lente 12-60mm: $20/hora
-- Micrófonos inalámbricos Holyland Lark Man 2: $10/hora
+| Horario | Precio por hora |
+|---|---|
+| Lunes a Viernes (8 AM – 5 PM) | $45 |
+| Lunes a Viernes nocturno (5 PM – 9 PM) | $50 |
+| Sábado, Domingo y feriados (8 AM – 9 PM) | $55 |
 
-## Equipo incluido en alquiler de estudio
+### Media jornada (4 horas, hora extra $45)
+
+| Modalidad | Precio |
+|---|---|
+| L-V día (8 AM-12 PM o 1-5 PM) | $160 |
+| L-V nocturno (5-9 PM) | $180 |
+| Sábado/Domingo día | $180 |
+| Sábado/Domingo nocturno | $200 |
+
+### Día completo (8 AM – 5 PM, hora extra $45)
+
+| Día | Precio |
+|---|---|
+| Lunes a Viernes | $300 |
+| Sábado, Domingo y feriados | $380 |
+
+### Equipo adicional en alquiler
+
+| Equipo | Precio |
+|---|---|
+| Cámara Panasonic Lumix G95 + lente 12-60mm | $20/hora |
+| Micrófonos inalámbricos Holyland Lark Man 2 | $10/hora |
+
+## Equipo incluido en cualquier alquiler de estudio
+
+### Fondos
 - Ciclograma blanco infinito de concreto
-- 7 fondos de papel (Blanco Ártico, Negro, Gris, Tropical Breeze, Aguajón, Brown Rice, Lemonade, Rojo)
-- 3 fondos de tela (Blanco, Negro, Verde)
-- Iluminación profesional: octagonal softbox Neewer 120cm, flashes Godox 300ws, paneles RGB, difusores 360, máquina de luces láser, máquina de humo, spot light
-- Soportes: SmallRig trípode 71" + monopie, paral jirafa 3.3m, cable tether
-- Estilismo: rack de ropa, plancha a vapor
-- Comodidades: pantalla TV 55" (proyección en vivo), sistema de sonido bluetooth, caminadora, máquina de hielo, air fryer, ventilador soplador
+- 7 fondos de papel: Blanco Ártico, Negro, Gris, Tropical Breeze, Aguajón, Brown Rice, Lemonade, Rojo
+- 3 fondos de tela: Blanco, Negro, Verde (chroma key)
+
+### Iluminación
+- Octagonal softbox Neewer 120cm
+- Flashes Godox 300ws
+- Paneles RGB
+- Difusores 360
+- Máquina de luces láser
+- Máquina de humo
+- Spot light
+
+### Soportes y accesorios
+- Trípode SmallRig 71" + monopie
+- Paral jirafa 3.3m
+- Cable tether
 - Caja fotográfica para productos con base giratoria
+
+### Estilismo
+- Rack de ropa
+- Plancha a vapor
 - Ambiente con luz controlada (telas para ventanal)
 
+### Comodidades
+- Pantalla TV 55" para proyección en vivo durante sesión
+- Sistema de sonido bluetooth
+- Caminadora
+- Máquina de hielo
+- Air fryer
+- Ventilador soplador
+
 ## Términos y condiciones
-- Depósito anticipado del 50% requerido para reservar (sin excepción)
-- No hay devoluciones una vez reservado
-- Toda fracción a partir de 15 minutos cuenta como 1 hora adicional
-- Horario nocturno: cargo de $10 por transporte del personal
-- Daño al ciclograma: recargo de $80
-- Prohibido pegar cualquier cosa en la pared/piso del ciclograma
-- Obligatorio teipe en zapatos, tacones y utilería
-- Si hay corte eléctrico (fuerza mayor), se reagenda sujeto a disponibilidad
 
-## Horarios
-- L-V día: 8 AM – 5 PM
-- L-V noche: 5 PM – 9 PM
-- Sáb, Dom y feriados: 8 AM – 9 PM
-- Reservas fuera de horario: a solicitud
+- **Reserva**: depósito anticipado del 50% requerido (sin excepción)
+- **Cancelación**: el depósito no es reembolsable una vez reservado
+- **Fracciones de hora**: toda fracción a partir de 15 minutos cuenta como 1 hora adicional completa
+- **Horario nocturno**: cargo adicional de $10 por transporte del personal
+- **Daño al ciclograma**: recargo de $80
+- **Restricciones**: prohibido pegar cualquier cosa en la pared/piso del ciclograma. Obligatorio teipe en zapatos, tacones y utilería
+- **Fuerza mayor**: si hay corte eléctrico, la sesión se reagenda sujeto a disponibilidad
 
-## Reservar
-- Web: https://thestudio4.io/#reservar
-- WhatsApp: https://wa.me/584246417634
-- Instagram DM: @thestudio4.ve
+## Horarios de atención
+
+| Día | Horario |
+|---|---|
+| Lunes a Viernes (día) | 8:00 AM – 5:00 PM |
+| Lunes a Viernes (noche) | 5:00 PM – 9:00 PM |
+| Sábado, Domingo y feriados | 8:00 AM – 9:00 PM |
+| Fuera de horario | A solicitud |
+
+## Cómo reservar
+
+1. **Vía web**: completar formulario en https://thestudio4.io/#reservar (envía por WhatsApp pre-llenado)
+2. **WhatsApp directo**: https://wa.me/584246417634
+3. **Instagram DM**: @thestudio4.ve
+4. Confirmar con el depósito del 50% por transferencia, pago móvil o Zelle
+
+## Preguntas frecuentes
+
+### ¿Cuánto cuesta alquilar el estudio?
+Por hora desde $45 (L-V día), media jornada de 4 horas desde $160, día completo de 8 horas desde $300. Todos los precios incluyen ciclograma, fondos, iluminación profesional y demás equipos del estudio.
+
+### ¿Qué tipo de sesiones se pueden hacer?
+Sesiones editoriales de moda, retrato, contenido para marcas y redes sociales, fotografía de producto / e-commerce, video corporativo, podcast, reels, lookbooks y cualquier producción audiovisual que requiera ambiente controlado.
+
+### ¿Hay servicio de fotógrafo incluido?
+No. The Studio 4 alquila el espacio y los equipos. El cliente trae a su fotógrafo, modelo y equipo creativo. Se pueden recomendar profesionales locales si se solicita.
+
+### ¿Permiten productos, comida o mascotas?
+Sí, con previa coordinación. Aplica el reglamento de protección del ciclograma (teipe en zapatos, no pegar nada).
+
+### ¿Tienen estacionamiento?
+Sí, en la Torre Delta con acceso desde Av. Bella Vista.
+
+### ¿Aceptan dólares en efectivo?
+Sí. También transferencia internacional, Zelle, pago móvil y bolívares.
+
+## Palabras clave / términos asociados
+
+estudio fotográfico Maracaibo, alquiler de estudio Maracaibo, ciclograma Maracaibo, set fotográfico Zulia, producción audiovisual Maracaibo, photo studio Venezuela, alquiler ciclograma Venezuela, estudio de fotografía Bella Vista, alquiler set Maracaibo, fotografía editorial Maracaibo, estudio video Zulia, sesión de fotos Maracaibo precio, dónde alquilar estudio fotográfico Maracaibo
+
+## Última actualización
+
+2026-04-25

@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://thestudio4.io/</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es-ve" href="https://thestudio4.io/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://thestudio4.io/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestudio4.io/" />
+    <image:image>
+      <image:loc>https://thestudio4.io/logo.png</image:loc>
+      <image:title>The Studio 4 — Estudio fotográfico en Maracaibo</image:title>
+      <image:caption>Logotipo de The Studio 4, estudio fotográfico y de producción audiovisual en Maracaibo, Venezuela.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://thestudio4.io/media/photo_DU8TRIhjo35.jpg</image:loc>
+      <image:title>Sesión editorial — The Studio 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thestudio4.io/media/photo_DUwU_g1DOMb.jpg</image:loc>
+      <image:title>Sesión editorial — The Studio 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thestudio4.io/media/photo_DVRCs5QDmR0.jpg</image:loc>
+      <image:title>Sesión editorial — The Studio 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thestudio4.io/media/photo_DWg2OkOlAss.jpg</image:loc>
+      <image:title>Sesión editorial — The Studio 4</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/#servicios</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/#galeria</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/galeria.html</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/#equipo</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/#reservar</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/#contacto</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

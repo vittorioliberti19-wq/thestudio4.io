@@ -1,4 +1,51 @@
+# robots.txt — The Studio 4
+
 User-agent: *
+Allow: /
+Disallow: /planes-2026.pdf
+
+# AI search crawlers (allow indexing for AI-powered search results)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://thestudio4.io/sitemap.xml
+Host: thestudio4.io
