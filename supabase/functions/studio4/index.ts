@@ -111,10 +111,13 @@ async function monthUsage(memberId: string) {
     .reduce((s, b) => s + (b.hora_fin - b.hora_inicio), 0);
   return { usadas, reservas };
 }
-async function adminOk(pin: string) {
+// 'admin' (Vitto) puede todo; 'staff' (Emely) gestiona reservas y ve miembros
+async function adminRole(pin: string): Promise<"admin" | "staff" | null> {
   const rows =
-    await sql`select value from studio4.settings where key = 'admin_pin'`;
-  return rows[0]?.value === String(pin);
+    await sql`select key, value from studio4.settings where key in ('admin_pin') or key like 'staff_pin_%'`;
+  const hit = rows.find((r) => r.value === String(pin));
+  if (!hit) return null;
+  return hit.key === "admin_pin" ? "admin" : "staff";
 }
 const isDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s);
 
@@ -239,8 +242,12 @@ Deno.serve(async (req) => {
 
     // ---------- admin (PIN) ----------
     if (action.startsWith("admin_")) {
-      if (!(await adminOk(String(body.pin ?? ""))))
-        return json({ error: "PIN incorrecto" }, 401);
+      const role = await adminRole(String(body.pin ?? ""));
+      if (!role) return json({ error: "PIN incorrecto" }, 401);
+      const soloAdmin = ["admin_set_plan"];
+      if (role === "staff" && soloAdmin.includes(action)) {
+        return json({ error: "Solo el administrador puede asignar planes" }, 403);
+      }
 
       if (action === "admin_list_members") {
         const members =
