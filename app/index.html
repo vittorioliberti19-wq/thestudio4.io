@@ -33,10 +33,11 @@
       }
       header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 18px 22px;
         border-bottom: 1px solid var(--line);
+        position: relative;
       }
       header .logo {
         font-weight: 800;
@@ -44,6 +45,10 @@
         font-size: 15px;
       }
       header button {
+        position: absolute;
+        right: 22px;
+        top: 50%;
+        transform: translateY(-50%);
         background: none;
         border: 1px solid var(--line);
         color: var(--mut);
@@ -216,7 +221,17 @@
         opacity: 0.25;
         cursor: default;
       }
-      .cal .day.today {
+      .cal .day.today::before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #fff;
+      }
+      .cal .day.sel {
         border-color: #fff;
       }
       .cal .day .dots {
@@ -303,7 +318,9 @@
   <body>
     <div id="authView" class="view">
       <div class="auth-wrap">
-        <div class="brand"><img src="logo-white.png" alt="The Studio 4" style="width: 240px" /></div>
+        <div class="brand">
+          <img src="logo-white.png" alt="The Studio 4" style="width: 240px" />
+        </div>
         <div class="card">
           <div id="loginBox">
             <h2>Portal de miembros</h2>
@@ -356,7 +373,16 @@
 
     <div id="appView" class="view">
       <header>
-        <div class="logo"><img src="logo-white.png" alt="The Studio 4" style="height: 20px; vertical-align: middle" /> <span style="color:#8a8a8a;font-size:12px;letter-spacing:2px">MIEMBROS</span></div>
+        <div class="logo">
+          <img
+            src="logo-white.png"
+            alt="The Studio 4"
+            style="height: 36px; vertical-align: middle"
+          />
+          <span style="color: #8a8a8a; font-size: 12px; letter-spacing: 2px"
+            >MIEMBROS</span
+          >
+        </div>
         <button onclick="logout()">SALIR</button>
       </header>
       <main>
@@ -364,7 +390,11 @@
         <div class="card">
           <h2>Calendario del estudio</h2>
           <div class="muted" style="margin-bottom: 10px">
-            Toca una hora libre (verde) para reservarla con tus horas del plan. Gris: reservado · Blanco: tuyas. También puedes reservar por <a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a>.<a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a
+            Toca una hora libre (verde) para reservarla con tus horas del plan.
+            Gris: reservado · Blanco: tuyas. También puedes reservar por
+            <a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a
+            >.<a href="https://wa.me/584246417634" style="color: #fff"
+              >WhatsApp</a
             >.
           </div>
           <div class="cal-head">
@@ -398,7 +428,18 @@
     <script>
       const API =
         "https://atxmxihxboswsewdbdgz.supabase.co/functions/v1/studio4";
-      const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+      const esc = (v) =>
+        String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
       let token = localStorage.getItem("s4token") || "";
       let calCursor = new Date();
       calCursor.setDate(1);
@@ -500,7 +541,9 @@
 
       function renderPlan(d) {
         const el = document.getElementById("planCard");
-        const nombre = esc(d.member.nombre ? d.member.nombre.split(" ")[0] : d.member.email);
+        const nombre = esc(
+          d.member.nombre ? d.member.nombre.split(" ")[0] : d.member.email,
+        );
         if (!d.plan) {
           el.innerHTML = `<h1>Hola, ${nombre}</h1>
       <div class="muted" style="margin:8px 0 4px">Aún no tienes una membresía activa. Elige tu plan y escríbenos:</div>
@@ -589,10 +632,15 @@
           const dots = daySlots
             .map((s) => `<span class="dot${s.mine ? " mine" : ""}"></span>`)
             .join("");
-          grid.innerHTML += `<div class="${cls}" ${isPast ? "" : `onclick="openDay('${f}',${dow})"`}><span class="mono">${dnum}</span><div class="dots">${dots}</div></div>`;
+          grid.innerHTML += `<div class="${cls}" data-f="${f}" ${isPast ? "" : `onclick="openDay('${f}',${dow})"`}><span class="mono">${dnum}</span><div class="dots">${dots}</div></div>`;
         }
       }
       function openDay(f, dow) {
+        document
+          .querySelectorAll(".cal .day.sel")
+          .forEach((d) => d.classList.remove("sel"));
+        const cell = document.querySelector(`.cal .day[data-f="${f}"]`);
+        if (cell) cell.classList.add("sel");
         const det = document.getElementById("dayDetail");
         const daySlots = slotsCache.filter(
           (s) => String(s.fecha).slice(0, 10) === f,
@@ -604,7 +652,9 @@
           );
           const cls = hit ? (hit.mine ? "mine" : "busy") : "free";
           const label = hit ? (hit.mine ? "Tuya" : "Reservado") : "Libre";
-          const click = hit ? "" : ` onclick="bookSlot('${f}',${h})" style="cursor:pointer"`;
+          const click = hit
+            ? ""
+            : ` onclick="bookSlot('${f}',${h})" style="cursor:pointer"`;
           html += `<span class="slot ${cls}"${click}>${h}:00 · ${label}</span>`;
         }
         det.innerHTML = html + "</div>";
@@ -615,12 +665,31 @@
         loadCalendar();
       }
       async function bookSlot(f, h) {
-        let dur = parseInt(prompt(`Reservar el ${f} desde las ${h}:00.\n¿Cuántas horas? (1-4)`, "1"), 10);
+        let dur = parseInt(
+          prompt(
+            `Reservar el ${f} desde las ${h}:00.\n¿Cuántas horas? (1-4)`,
+            "1",
+          ),
+          10,
+        );
         if (!dur || dur < 1) return;
         dur = Math.min(dur, 4);
         try {
-          await api({ action: "book", fecha: f, hora_inicio: h, hora_fin: h + dur });
-          alert("Reserva confirmada: " + f + " de " + h + ":00 a " + (h + dur) + ":00");
+          await api({
+            action: "book",
+            fecha: f,
+            hora_inicio: h,
+            hora_fin: h + dur,
+          });
+          alert(
+            "Reserva confirmada: " +
+              f +
+              " de " +
+              h +
+              ":00 a " +
+              (h + dur) +
+              ":00",
+          );
           boot();
         } catch (e) {
           alert(e.message);
@@ -663,7 +732,8 @@
           logout();
         }
       }
-      if (!token && (qTipo === "fotografo" || qTipo === "marca")) show("regBox");
+      if (!token && (qTipo === "fotografo" || qTipo === "marca"))
+        show("regBox");
       boot();
     </script>
   </body>
