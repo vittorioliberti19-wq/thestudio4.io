@@ -303,9 +303,7 @@
   <body>
     <div id="authView" class="view">
       <div class="auth-wrap">
-        <div class="brand">
-          THE STUDI<span style="letter-spacing: 0">&#9210;</span> 4
-        </div>
+        <div class="brand"><img src="logo-white.png" alt="The Studio 4" style="width: 240px" /></div>
         <div class="card">
           <div id="loginBox">
             <h2>Portal de miembros</h2>
@@ -324,6 +322,11 @@
           </div>
           <div id="regBox" style="display: none">
             <h2>Crear cuenta</h2>
+            <label>Tipo de cuenta</label>
+            <select id="rgTipo">
+              <option value="fotografo">Fotógrafo / Creador</option>
+              <option value="marca">Marca / Negocio</option>
+            </select>
             <label>Nombre</label><input id="rgNombre" /> <label>Teléfono</label
             ><input id="rgTel" placeholder="0414-..." /> <label>Correo</label
             ><input id="rgEmail" type="email" /> <label>Clave (mín. 8)</label
@@ -353,7 +356,7 @@
 
     <div id="appView" class="view">
       <header>
-        <div class="logo">THE STUDI&#9210; 4 · MIEMBROS</div>
+        <div class="logo"><img src="logo-white.png" alt="The Studio 4" style="height: 20px; vertical-align: middle" /> <span style="color:#8a8a8a;font-size:12px;letter-spacing:2px">MIEMBROS</span></div>
         <button onclick="logout()">SALIR</button>
       </header>
       <main>
@@ -397,6 +400,7 @@
     <script>
       const API =
         "https://atxmxihxboswsewdbdgz.supabase.co/functions/v1/studio4";
+      const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
       let token = localStorage.getItem("s4token") || "";
       let calCursor = new Date();
       calCursor.setDate(1);
@@ -445,6 +449,7 @@
               password: rgPass.value,
               nombre: rgNombre.value,
               telefono: rgTel.value,
+              tipo: rgTipo.value,
             },
             false,
           );
@@ -491,9 +496,7 @@
 
       function renderPlan(d) {
         const el = document.getElementById("planCard");
-        const nombre = d.member.nombre
-          ? d.member.nombre.split(" ")[0]
-          : d.member.email;
+        const nombre = esc(d.member.nombre ? d.member.nombre.split(" ")[0] : d.member.email);
         if (!d.plan) {
           el.innerHTML = `<h1>Hola, ${nombre}</h1>
       <div class="muted" style="margin:8px 0 4px">Aún no tienes una membresía activa. Elige tu plan y escríbenos:</div>
@@ -511,10 +514,10 @@
           ? ""
           : ` <span style="color:#ffb46b;font-size:12px">(pago pendiente de activación)</span>`;
         const sol = (d.solicitudes || []).length
-          ? `<div class="muted" style="margin-top:8px">Solicitud de cambio a <b>${d.solicitudes[0].plan_nuevo}</b> pendiente.</div>`
+          ? `<div class="muted" style="margin-top:8px">Solicitud de cambio a <b>${esc(d.solicitudes[0].plan_nuevo)}</b> pendiente.</div>`
           : "";
         el.innerHTML = `<h1>Hola, ${nombre}</h1>
-    <div style="margin:6px 0 14px">Plan <b>${d.plan.nombre}</b> · $${Number(d.plan.precio)}/mes${estado}</div>
+    <div style="margin:6px 0 14px">Plan <b>${esc(d.plan.nombre)}</b> · $${Number(d.plan.precio)}/mes${estado}</div>
     <div class="kpis">
       <div class="kpi"><div class="v">${disp}</div><div class="l">Horas disponibles</div></div>
       <div class="kpi"><div class="v">${usadas}</div><div class="l">Horas usadas</div></div>
@@ -630,10 +633,12 @@
           loadCalendar();
           if (!plansCache.length)
             plansCache = (await api({ action: "plans" }, false)).plans;
+          const cat = d.member.tipo === "marca" ? "brand" : "foto";
           chPlan.innerHTML = plansCache
+            .filter((p) => p.categoria === cat)
             .map(
               (p) =>
-                `<option value="${p.code}">${p.nombre} — $${Number(p.precio)}/mes (${Number(p.horas_mes)}h)</option>`,
+                `<option value="${esc(p.code)}">${esc(p.nombre)} — $${Number(p.precio)}/mes (${Number(p.horas_mes)}h)</option>`,
             )
             .join("");
         } catch {

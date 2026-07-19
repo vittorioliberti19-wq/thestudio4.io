@@ -44,7 +44,7 @@ async function hashPassword(password: string, saltB64?: string) {
     ["deriveBits"],
   );
   const bits = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", salt, iterations: 100_000, hash: "SHA-256" },
+    { name: "PBKDF2", salt, iterations: 210_000, hash: "SHA-256" },
     key,
     256,
   );
@@ -97,7 +97,7 @@ async function readToken(
 // ---------- helpers ----------
 async function getMember(id: string) {
   const rows =
-    await sql`select id, email, nombre, telefono, plan_code, plan_activo, created_at
+    await sql`select id, email, nombre, telefono, tipo, plan_code, plan_activo, created_at
     from studio4.members where id = ${id}`;
   return rows[0] ?? null;
 }
@@ -134,7 +134,7 @@ Deno.serve(async (req) => {
     // ---------- público ----------
     if (action === "plans") {
       const plans =
-        await sql`select code, nombre, precio, horas_mes, extra_rate, payment_link
+        await sql`select code, nombre, precio, horas_mes, extra_rate, payment_link, categoria
         from studio4.plans where activo order by precio`;
       return json({ plans });
     }
@@ -156,9 +156,10 @@ Deno.serve(async (req) => {
       const hash = await hashPassword(password);
       const nombre = String(body.nombre ?? "").slice(0, 120) || null;
       const telefono = String(body.telefono ?? "").slice(0, 30) || null;
+      const tipo = body.tipo === "marca" ? "marca" : "fotografo";
       const rows =
-        await sql`insert into studio4.members (email, password_hash, nombre, telefono)
-        values (${email}, ${hash}, ${nombre}, ${telefono}) returning id, email`;
+        await sql`insert into studio4.members (email, password_hash, nombre, telefono, tipo)
+        values (${email}, ${hash}, ${nombre}, ${telefono}, ${tipo}) returning id, email`;
       return json({ token: await makeToken(rows[0].id, rows[0].email) });
     }
 
@@ -346,8 +347,12 @@ Deno.serve(async (req) => {
       const member = await getMember(session.sub);
       const planNuevo = String(body.plan_nuevo ?? "");
       const p =
-        await sql`select code from studio4.plans where code = ${planNuevo} and activo`;
+        await sql`select code, categoria from studio4.plans where code = ${planNuevo} and activo`;
       if (!p.length) return json({ error: "Plan inválido" }, 400);
+      const catRequerida = member?.tipo === "marca" ? "brand" : "foto";
+      if (p[0].categoria !== catRequerida) {
+        return json({ error: "Ese plan no aplica para tu tipo de cuenta. Escríbenos por WhatsApp si quieres cambiarlo." }, 403);
+      }
       await sql`insert into studio4.plan_change_requests (member_id, plan_actual, plan_nuevo)
         values (${session.sub}, ${member?.plan_code ?? null}, ${planNuevo})`;
       return json({ ok: true });

@@ -11,11 +11,11 @@
 ## Pasos
 
 1. [x] Migración schema `studio4`: plans (seed escalera final), members, bookings, otp_codes, plan_change_requests, settings (admin_pin).
-2. [ ] Edge function `studio4` (router: signup/login/me/calendar/request*plan_change/otp_request/otp_verify/admin*\*) deploy con `--no-verify-jwt`.
-3. [ ] SPA `/app/index.html`: login/registro/recuperar, saldo de horas del plan, calendario disponibilidad (reservas anónimas), gestión/cambio de plan, botón de pago Stripe.
-4. [ ] `/app/admin.html`: cargar reservas, asignar planes, ver día.
-5. [ ] Commit + push (GitHub Pages publica).
-6. [ ] Verificar en prod con curl + navegador.
+2. [x] Edge function `studio4` (router: signup/login/me/calendar/request*plan_change/otp_request/otp_verify/admin*\*) deploy con `--no-verify-jwt`.
+3. [x] SPA `/app/index.html`: login/registro/recuperar, saldo de horas del plan, calendario disponibilidad (reservas anónimas), gestión/cambio de plan, botón de pago Stripe.
+4. [x] `/app/admin.html`: cargar reservas, asignar planes, ver día.
+5. [x] Commit + push (GitHub Pages publica).
+6. [x] (curl plans/signup/me/calendar + Playwright login/calendario OK; /app en prod verificándose) Verificar en prod con curl + navegador.
 
 ## Pendiente de Vitto
 

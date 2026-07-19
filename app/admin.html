@@ -100,7 +100,7 @@
     </style>
   </head>
   <body>
-    <h1>THE STUDI&#9210; 4 · ADMIN</h1>
+    <h1><img src="logo-white.png" alt="The Studio 4" style="height: 22px; vertical-align: middle" /> · ADMIN</h1>
 
     <div class="card">
       <h2 style="margin-top: 0">PIN</h2>
@@ -174,6 +174,7 @@
     <script>
       const API =
         "https://atxmxihxboswsewdbdgz.supabase.co/functions/v1/studio4";
+      const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
       async function api(payload) {
         payload.pin = document.getElementById("pin").value;
         const r = await fetch(API, {
@@ -227,7 +228,7 @@
           d.bookings
             .map(
               (b) =>
-                `<tr><td class="mono">${b.hora_inicio}:00–${b.hora_fin}:00</td><td>${b.tipo}</td><td>${b.email ?? "externo"}</td><td>${b.nota ?? ""}</td><td><button class="sec" onclick="delBooking('${b.id}')">X</button></td></tr>`,
+                `<tr><td class="mono">${b.hora_inicio}:00–${b.hora_fin}:00</td><td>${esc(b.tipo)}</td><td>${esc(b.email ?? "externo")}</td><td>${esc(b.nota ?? "")}</td><td><button class="sec" onclick="delBooking('${b.id}')">X</button></td></tr>`,
             )
             .join("") +
           "</table>";
@@ -259,7 +260,7 @@
           d.members
             .map(
               (m) =>
-                `<tr><td>${m.email}</td><td>${m.nombre ?? ""}</td><td>${m.telefono ?? ""}</td><td>${m.plan_code ?? "—"}</td><td>${m.plan_activo ? "✓" : "✗"}</td></tr>`,
+                `<tr><td>${esc(m.email)}</td><td>${esc(m.nombre ?? "")}</td><td>${esc(m.telefono ?? "")}</td><td>${esc(m.plan_code ?? "—")}</td><td>${m.plan_activo ? "✓" : "✗"}</td></tr>`,
             )
             .join("") +
           "</table>";
@@ -271,7 +272,7 @@
             d.requests
               .map(
                 (r) =>
-                  `<tr><td>${r.email}</td><td>${r.plan_actual ?? "—"}</td><td>${r.plan_nuevo}</td><td class="mono">${String(r.created_at).slice(0, 10)}</td></tr>`,
+                  `<tr><td>${esc(r.email)}</td><td>${esc(r.plan_actual ?? "—")}</td><td>${esc(r.plan_nuevo)}</td><td class="mono">${String(r.created_at).slice(0, 10)}</td></tr>`,
               )
               .join("") +
             "</table>"
