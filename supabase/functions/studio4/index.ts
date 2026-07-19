@@ -359,6 +359,43 @@ Deno.serve(async (req) => {
       return json({ slots });
     }
 
+    if (action === "book") {
+      const member = await getMember(session.sub);
+      if (!member?.plan_code || !member.plan_activo) {
+        return json({ error: "Necesitas una membresía activa para reservar por la web. Escríbenos por WhatsApp." }, 403);
+      }
+      const fecha = String(body.fecha ?? "");
+      const ini = Number(body.hora_inicio);
+      const fin = Number(body.hora_fin);
+      if (!isDate(fecha) || !Number.isInteger(ini) || !Number.isInteger(fin) || fin <= ini) {
+        return json({ error: "Datos de reserva inválidos" }, 400);
+      }
+      if (ini < 8 || fin > 17) {
+        return json({ error: "Por la web solo se reservan horas del plan (L-V 8am–5pm). Noches y fines de semana por WhatsApp." }, 400);
+      }
+      const dow = new Date(fecha + "T12:00:00Z").getUTCDay();
+      if (dow === 0 || dow === 6) {
+        return json({ error: "Fines de semana se reservan por WhatsApp (tarifa noche/finde)." }, 400);
+      }
+      const hoy = new Date();
+      const manana = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 1);
+      if (new Date(fecha + "T00:00:00") < manana) {
+        return json({ error: "Reserva con mínimo 24h de antelación. Para hoy escríbenos por WhatsApp." }, 400);
+      }
+      const choque = await sql`select 1 from studio4.bookings
+        where fecha = ${fecha} and hora_inicio < ${fin} and hora_fin > ${ini} limit 1`;
+      if (choque.length) return json({ error: "Ese horario ya está reservado." }, 409);
+      const plan = await sql`select horas_mes from studio4.plans where code = ${member.plan_code}`;
+      const { usadas } = await monthUsage(member.id);
+      const dur = fin - ini;
+      if (usadas + dur > Number(plan[0].horas_mes)) {
+        return json({ error: `Te quedan ${Math.max(0, Number(plan[0].horas_mes) - usadas)}h del plan este mes. Horas adicionales por WhatsApp.` }, 400);
+      }
+      await sql`insert into studio4.bookings (member_id, fecha, hora_inicio, hora_fin, tipo, nota)
+        values (${member.id}, ${fecha}, ${ini}, ${fin}, 'plan', 'reserva web')`;
+      return json({ ok: true });
+    }
+
     if (action === "request_plan_change") {
       const member = await getMember(session.sub);
       const planNuevo = String(body.plan_nuevo ?? "");

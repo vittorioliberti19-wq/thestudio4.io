@@ -364,9 +364,7 @@
         <div class="card">
           <h2>Calendario del estudio</h2>
           <div class="muted" style="margin-bottom: 10px">
-            Gris: reservado · Blanco: tus reservas · Verde: disponible
-            (8am–9pm). Para reservar escríbenos por
-            <a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a
+            Toca una hora libre (verde) para reservarla con tus horas del plan. Gris: reservado · Blanco: tuyas. También puedes reservar por <a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a>.<a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a
             >.
           </div>
           <div class="cal-head">
@@ -606,7 +604,8 @@
           );
           const cls = hit ? (hit.mine ? "mine" : "busy") : "free";
           const label = hit ? (hit.mine ? "Tuya" : "Reservado") : "Libre";
-          html += `<span class="slot ${cls}">${h}:00 · ${label}</span>`;
+          const click = hit ? "" : ` onclick="bookSlot('${f}',${h})" style="cursor:pointer"`;
+          html += `<span class="slot ${cls}"${click}>${h}:00 · ${label}</span>`;
         }
         det.innerHTML = html + "</div>";
         det.style.display = "block";
@@ -614,6 +613,18 @@
       function moveMonth(delta) {
         calCursor.setMonth(calCursor.getMonth() + delta);
         loadCalendar();
+      }
+      async function bookSlot(f, h) {
+        let dur = parseInt(prompt(`Reservar el ${f} desde las ${h}:00.\n¿Cuántas horas? (1-4)`, "1"), 10);
+        if (!dur || dur < 1) return;
+        dur = Math.min(dur, 4);
+        try {
+          await api({ action: "book", fecha: f, hora_inicio: h, hora_fin: h + dur });
+          alert("Reserva confirmada: " + f + " de " + h + ":00 a " + (h + dur) + ":00");
+          boot();
+        } catch (e) {
+          alert(e.message);
+        }
       }
       async function requestChange() {
         try {
