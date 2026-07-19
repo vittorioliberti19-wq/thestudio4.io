@@ -3,9 +3,11 @@
 import postgres from "npm:postgres@3.4.5";
 
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const RESEND_KEY = Deno.env.get("RESEND_STUDIO4_KEY") ?? "";
+// Prioridad: key propia del Studio; fallback: key del team liberticorporation (dominio verificado)
+const RESEND_KEY =
+  Deno.env.get("RESEND_STUDIO4_KEY") ?? Deno.env.get("CIERRE_RESEND_KEY") ?? "";
 const OTP_FROM =
-  Deno.env.get("STUDIO4_OTP_FROM") ?? "The Studio 4 <no-reply@thestudio4.io>";
+  Deno.env.get("STUDIO4_OTP_FROM") ?? "The Studio 4 <thestudio4@liberticorporation.com>";
 
 const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, {
   prepare: false,
