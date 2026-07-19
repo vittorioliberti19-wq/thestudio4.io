@@ -137,7 +137,7 @@ Deno.serve(async (req) => {
     // ---------- público ----------
     if (action === "plans") {
       const plans =
-        await sql`select code, nombre, precio, horas_mes, extra_rate, payment_link, categoria
+        await sql`select code, nombre, precio, horas_mes, extra_rate, offpeak_rate, payment_link, categoria
         from studio4.plans where activo order by precio`;
       return json({ plans });
     }
@@ -315,7 +315,7 @@ Deno.serve(async (req) => {
       const member = await getMember(session.sub);
       if (!member) return json({ error: "Cuenta no encontrada" }, 404);
       const planRows = member.plan_code
-        ? await sql`select code, nombre, precio, horas_mes, extra_rate, payment_link from studio4.plans where code = ${member.plan_code}`
+        ? await sql`select code, nombre, precio, horas_mes, extra_rate, offpeak_rate, payment_link from studio4.plans where code = ${member.plan_code}`
         : [];
       const plan = planRows[0] ?? null;
       const { usadas, reservas } = await monthUsage(member.id);

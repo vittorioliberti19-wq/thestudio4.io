@@ -523,6 +523,7 @@
       <div class="kpi"><div class="v">${usadas}</div><div class="l">Horas usadas</div></div>
       <div class="kpi"><div class="v">${total}</div><div class="l">Horas del plan</div></div>
       <div class="kpi"><div class="v">$${d.plan.extra_rate ?? "-"}</div><div class="l">Hora extra</div></div>
+      <div class="kpi"><div class="v">$${d.plan.offpeak_rate ?? "-"}</div><div class="l">Noche/finde</div></div>
     </div>
     <div class="bar"><i style="width:${pct}%"></i></div>
     ${pago}${sol}`;
