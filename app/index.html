@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portal de Miembros — The Studio 4</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="../favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d0d0d;
+        --card: #141414;
+        --line: #2c2c2c;
+        --mut: #8a8a8a;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Manrope", sans-serif;
+        background: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+      header .logo {
+        font-weight: 800;
+        letter-spacing: 3px;
+        font-size: 15px;
+      }
+      header button {
+        background: none;
+        border: 1px solid var(--line);
+        color: var(--mut);
+        padding: 6px 14px;
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 26px 18px 60px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        padding: 22px;
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+      h2 {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--mut);
+        margin-bottom: 14px;
+      }
+      label {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--mut);
+        margin: 12px 0 4px;
+      }
+      input,
+      select {
+        width: 100%;
+        background: #0a0a0a;
+        border: 1px solid var(--line);
+        color: #fff;
+        padding: 11px 12px;
+        font-family: "Manrope", sans-serif;
+        font-size: 14px;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #666;
+      }
+      button.btn {
+        width: 100%;
+        background: #fff;
+        color: #000;
+        border: none;
+        padding: 13px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 16px;
+      }
+      button.btn.sec {
+        background: none;
+        color: #fff;
+        border: 1px solid var(--line);
+      }
+      .link {
+        color: var(--mut);
+        font-size: 12px;
+        text-decoration: underline;
+        cursor: pointer;
+        margin-top: 12px;
+        display: inline-block;
+      }
+      .err {
+        color: #ff7b7b;
+        font-size: 12.5px;
+        margin-top: 10px;
+        min-height: 16px;
+      }
+      .ok {
+        color: #8fdc9a;
+      }
+      .auth-wrap {
+        max-width: 400px;
+        margin: 8vh auto 0;
+      }
+      .auth-wrap .brand {
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: 4px;
+        font-size: 20px;
+        margin-bottom: 26px;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+      }
+      .kpi {
+        border: 1px solid var(--line);
+        padding: 14px;
+        text-align: center;
+      }
+      .kpi .v {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 26px;
+        font-weight: 800;
+      }
+      .kpi .l {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--mut);
+        margin-top: 4px;
+      }
+      .bar {
+        height: 6px;
+        background: #222;
+        margin-top: 14px;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: #fff;
+      }
+      .cal-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .cal-head button {
+        background: none;
+        border: 1px solid var(--line);
+        color: #fff;
+        padding: 4px 12px;
+        cursor: pointer;
+      }
+      .cal {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+      .cal .dow {
+        text-align: center;
+        font-size: 10px;
+        color: var(--mut);
+        letter-spacing: 1px;
+        padding: 4px 0;
+      }
+      .cal .day {
+        min-height: 54px;
+        border: 1px solid var(--line);
+        padding: 4px;
+        font-size: 11px;
+        cursor: pointer;
+        position: relative;
+      }
+      .cal .day.off {
+        opacity: 0.25;
+        cursor: default;
+      }
+      .cal .day.today {
+        border-color: #fff;
+      }
+      .cal .day .dots {
+        position: absolute;
+        bottom: 4px;
+        left: 4px;
+        right: 4px;
+        display: flex;
+        gap: 2px;
+        flex-wrap: wrap;
+      }
+      .cal .dot {
+        width: 7px;
+        height: 7px;
+        background: #666;
+      }
+      .cal .dot.mine {
+        background: #fff;
+      }
+      .day-detail {
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+        display: none;
+      }
+      .slotrow {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .slot {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        padding: 6px 8px;
+        border: 1px solid var(--line);
+      }
+      .slot.busy {
+        background: #222;
+        color: #999;
+      }
+      .slot.mine {
+        background: #fff;
+        color: #000;
+        font-weight: 700;
+      }
+      .slot.free {
+        color: #8fdc9a;
+        border-color: #2c4030;
+      }
+      .plan-cta {
+        display: inline-block;
+        background: #fff;
+        color: #000;
+        padding: 10px 18px;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        margin-top: 12px;
+      }
+      .muted {
+        color: var(--mut);
+        font-size: 12.5px;
+      }
+      .view {
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+      table.mias {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      table.mias td {
+        border-bottom: 1px solid var(--line);
+        padding: 7px 4px;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="authView" class="view">
+      <div class="auth-wrap">
+        <div class="brand">
+          THE STUDI<span style="letter-spacing: 0">&#9210;</span> 4
+        </div>
+        <div class="card">
+          <div id="loginBox">
+            <h2>Portal de miembros</h2>
+            <label>Correo</label
+            ><input id="liEmail" type="email" autocomplete="email" />
+            <label>Clave</label
+            ><input
+              id="liPass"
+              type="password"
+              autocomplete="current-password"
+            />
+            <button class="btn" onclick="login()">Entrar</button>
+            <div class="err" id="liErr"></div>
+            <span class="link" onclick="show('regBox')">Crear cuenta</span> ·
+            <span class="link" onclick="show('otpBox')">Olvidé mi clave</span>
+          </div>
+          <div id="regBox" style="display: none">
+            <h2>Crear cuenta</h2>
+            <label>Nombre</label><input id="rgNombre" /> <label>Teléfono</label
+            ><input id="rgTel" placeholder="0414-..." /> <label>Correo</label
+            ><input id="rgEmail" type="email" /> <label>Clave (mín. 8)</label
+            ><input id="rgPass" type="password" />
+            <button class="btn" onclick="signup()">Registrarme</button>
+            <div class="err" id="rgErr"></div>
+            <span class="link" onclick="show('loginBox')">Ya tengo cuenta</span>
+          </div>
+          <div id="otpBox" style="display: none">
+            <h2>Recuperar clave</h2>
+            <label>Correo</label><input id="otEmail" type="email" />
+            <button class="btn sec" onclick="otpRequest()">
+              Enviarme código
+            </button>
+            <div id="otpStep2" style="display: none">
+              <label>Código (6 dígitos)</label
+              ><input id="otCode" class="mono" maxlength="6" />
+              <label>Clave nueva</label><input id="otPass" type="password" />
+              <button class="btn" onclick="otpVerify()">Cambiar clave</button>
+            </div>
+            <div class="err" id="otErr"></div>
+            <span class="link" onclick="show('loginBox')">Volver</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="appView" class="view">
+      <header>
+        <div class="logo">THE STUDI&#9210; 4 · MIEMBROS</div>
+        <button onclick="logout()">SALIR</button>
+      </header>
+      <main>
+        <div class="card" id="planCard"></div>
+        <div class="card">
+          <h2>Calendario del estudio</h2>
+          <div class="muted" style="margin-bottom: 10px">
+            Gris: reservado · Blanco: tus reservas · Verde: disponible
+            (8am–9pm). Para reservar escríbenos por
+            <a href="https://wa.me/584246417634" style="color: #fff">WhatsApp</a
+            >.
+          </div>
+          <div class="cal-head">
+            <button onclick="moveMonth(-1)">&#8592;</button>
+            <div class="mono" id="calTitle"></div>
+            <button onclick="moveMonth(1)">&#8594;</button>
+          </div>
+          <div class="cal" id="calGrid"></div>
+          <div class="day-detail" id="dayDetail"></div>
+        </div>
+        <div class="card">
+          <h2>Mis reservas del mes</h2>
+          <div id="misReservas" class="muted">—</div>
+        </div>
+        <div class="card">
+          <h2>Cambiar de plan</h2>
+          <div class="muted">
+            La solicitud la confirma el estudio y aplica desde tu próximo ciclo
+            de facturación.
+          </div>
+          <label>Plan nuevo</label
+          ><select id="chPlan"></select>
+          <button class="btn sec" onclick="requestChange()">
+            Solicitar cambio
+          </button>
+          <div class="err" id="chMsg"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const API =
+        "https://atxmxihxboswsewdbdgz.supabase.co/functions/v1/studio4";
+      let token = localStorage.getItem("s4token") || "";
+      let calCursor = new Date();
+      calCursor.setDate(1);
+      let slotsCache = [];
+      let plansCache = [];
+
+      async function api(payload, auth = true) {
+        const headers = { "Content-Type": "application/json" };
+        if (auth && token) headers["Authorization"] = "Bearer " + token;
+        const r = await fetch(API, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload),
+        });
+        const data = await r.json().catch(() => ({ error: "Error de red" }));
+        if (!r.ok) throw new Error(data.error || "Error");
+        return data;
+      }
+      function show(id) {
+        for (const b of ["loginBox", "regBox", "otpBox"])
+          document.getElementById(b).style.display = b === id ? "" : "none";
+      }
+      function setView(app) {
+        document.getElementById("authView").classList.toggle("active", !app);
+        document.getElementById("appView").classList.toggle("active", app);
+      }
+      async function login() {
+        try {
+          const d = await api(
+            { action: "login", email: liEmail.value, password: liPass.value },
+            false,
+          );
+          token = d.token;
+          localStorage.setItem("s4token", token);
+          boot();
+        } catch (e) {
+          liErr.textContent = e.message;
+        }
+      }
+      async function signup() {
+        try {
+          const d = await api(
+            {
+              action: "signup",
+              email: rgEmail.value,
+              password: rgPass.value,
+              nombre: rgNombre.value,
+              telefono: rgTel.value,
+            },
+            false,
+          );
+          token = d.token;
+          localStorage.setItem("s4token", token);
+          boot();
+        } catch (e) {
+          rgErr.textContent = e.message;
+        }
+      }
+      async function otpRequest() {
+        try {
+          await api({ action: "otp_request", email: otEmail.value }, false);
+          otErr.innerHTML =
+            '<span class="ok">Si el correo existe, te llegó un código.</span>';
+          otpStep2.style.display = "";
+        } catch (e) {
+          otErr.textContent = e.message;
+        }
+      }
+      async function otpVerify() {
+        try {
+          await api(
+            {
+              action: "otp_verify",
+              email: otEmail.value,
+              code: otCode.value,
+              new_password: otPass.value,
+            },
+            false,
+          );
+          otErr.innerHTML =
+            '<span class="ok">Clave cambiada. Inicia sesión.</span>';
+          show("loginBox");
+        } catch (e) {
+          otErr.textContent = e.message;
+        }
+      }
+      function logout() {
+        token = "";
+        localStorage.removeItem("s4token");
+        setView(false);
+      }
+
+      function renderPlan(d) {
+        const el = document.getElementById("planCard");
+        const nombre = d.member.nombre
+          ? d.member.nombre.split(" ")[0]
+          : d.member.email;
+        if (!d.plan) {
+          el.innerHTML = `<h1>Hola, ${nombre}</h1>
+      <div class="muted" style="margin:8px 0 4px">Aún no tienes una membresía activa. Elige tu plan y escríbenos:</div>
+      <a class="plan-cta" href="https://wa.me/584246417634?text=Hola!%20Quiero%20activar%20mi%20membres%C3%ADa%20The%20Studio%204">Activar membresía</a>`;
+          return;
+        }
+        const total = Number(d.plan.horas_mes),
+          usadas = d.usadas,
+          disp = d.disponibles;
+        const pct = Math.min(100, Math.round((usadas / total) * 100));
+        const pago = d.plan.payment_link
+          ? `<a class="plan-cta" href="${d.plan.payment_link}" target="_blank">Gestionar pago</a>`
+          : `<div class="muted" style="margin-top:10px">Pago automatizado: Stripe o Zelle programado (coordinado con el estudio).</div>`;
+        const estado = d.member.plan_activo
+          ? ""
+          : ` <span style="color:#ffb46b;font-size:12px">(pago pendiente de activación)</span>`;
+        const sol = (d.solicitudes || []).length
+          ? `<div class="muted" style="margin-top:8px">Solicitud de cambio a <b>${d.solicitudes[0].plan_nuevo}</b> pendiente.</div>`
+          : "";
+        el.innerHTML = `<h1>Hola, ${nombre}</h1>
+    <div style="margin:6px 0 14px">Plan <b>${d.plan.nombre}</b> · $${Number(d.plan.precio)}/mes${estado}</div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">${disp}</div><div class="l">Horas disponibles</div></div>
+      <div class="kpi"><div class="v">${usadas}</div><div class="l">Horas usadas</div></div>
+      <div class="kpi"><div class="v">${total}</div><div class="l">Horas del plan</div></div>
+      <div class="kpi"><div class="v">$${d.plan.extra_rate ?? "-"}</div><div class="l">Hora extra</div></div>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    ${pago}${sol}`;
+      }
+      function renderMias(d) {
+        const el = document.getElementById("misReservas");
+        if (!d.reservas.length) {
+          el.textContent = "Sin reservas este mes.";
+          return;
+        }
+        el.innerHTML =
+          "<table class='mias'>" +
+          d.reservas
+            .map(
+              (r) =>
+                `<tr><td class="mono">${String(r.fecha).slice(0, 10)}</td><td class="mono">${r.hora_inicio}:00–${r.hora_fin}:00</td><td>${r.tipo === "plan" ? "Horas del plan" : "Extra"}</td></tr>`,
+            )
+            .join("") +
+          "</table>";
+      }
+      function ymd(d) {
+        return d.toISOString().slice(0, 10);
+      }
+      async function loadCalendar() {
+        const y = calCursor.getFullYear(),
+          m = calCursor.getMonth();
+        const desde = ymd(new Date(Date.UTC(y, m, 1))),
+          hasta = ymd(new Date(Date.UTC(y, m + 1, 0)));
+        calTitle.textContent = calCursor
+          .toLocaleDateString("es-VE", { month: "long", year: "numeric" })
+          .toUpperCase();
+        try {
+          slotsCache = (await api({ action: "calendar", desde, hasta })).slots;
+        } catch {
+          slotsCache = [];
+        }
+        const grid = document.getElementById("calGrid");
+        grid.innerHTML = ["L", "M", "M", "J", "V", "S", "D"]
+          .map((d) => `<div class="dow">${d}</div>`)
+          .join("");
+        const first = new Date(y, m, 1);
+        const pad = (first.getDay() + 6) % 7;
+        const days = new Date(y, m + 1, 0).getDate();
+        const hoy = new Date();
+        for (let i = 0; i < pad; i++) grid.innerHTML += `<div></div>`;
+        for (let dnum = 1; dnum <= days; dnum++) {
+          const f = `${y}-${String(m + 1).padStart(2, "0")}-${String(dnum).padStart(2, "0")}`;
+          const dow = new Date(y, m, dnum).getDay();
+          const daySlots = slotsCache.filter(
+            (s) => String(s.fecha).slice(0, 10) === f,
+          );
+          const isPast =
+            new Date(y, m, dnum) <
+            new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+          const cls =
+            "day" +
+            (isPast ? " off" : "") +
+            (ymd(new Date(Date.UTC(y, m, dnum))) === ymd(hoy) ? " today" : "");
+          const dots = daySlots
+            .map((s) => `<span class="dot${s.mine ? " mine" : ""}"></span>`)
+            .join("");
+          grid.innerHTML += `<div class="${cls}" ${isPast ? "" : `onclick="openDay('${f}',${dow})"`}><span class="mono">${dnum}</span><div class="dots">${dots}</div></div>`;
+        }
+      }
+      function openDay(f, dow) {
+        const det = document.getElementById("dayDetail");
+        const daySlots = slotsCache.filter(
+          (s) => String(s.fecha).slice(0, 10) === f,
+        );
+        let html = `<div class="mono" style="margin-bottom:8px">${f}</div><div class="slotrow">`;
+        for (let h = 8; h < 21; h++) {
+          const hit = daySlots.find(
+            (s) => h >= s.hora_inicio && h < s.hora_fin,
+          );
+          const cls = hit ? (hit.mine ? "mine" : "busy") : "free";
+          const label = hit ? (hit.mine ? "Tuya" : "Reservado") : "Libre";
+          html += `<span class="slot ${cls}">${h}:00 · ${label}</span>`;
+        }
+        det.innerHTML = html + "</div>";
+        det.style.display = "block";
+      }
+      function moveMonth(delta) {
+        calCursor.setMonth(calCursor.getMonth() + delta);
+        loadCalendar();
+      }
+      async function requestChange() {
+        try {
+          await api({
+            action: "request_plan_change",
+            plan_nuevo: chPlan.value,
+          });
+          chMsg.innerHTML =
+            '<span class="ok">Solicitud enviada. Te confirmamos por WhatsApp.</span>';
+        } catch (e) {
+          chMsg.textContent = e.message;
+        }
+      }
+      async function boot() {
+        if (!token) {
+          setView(false);
+          return;
+        }
+        try {
+          const d = await api({ action: "me" });
+          setView(true);
+          renderPlan(d);
+          renderMias(d);
+          loadCalendar();
+          if (!plansCache.length)
+            plansCache = (await api({ action: "plans" }, false)).plans;
+          chPlan.innerHTML = plansCache
+            .map(
+              (p) =>
+                `<option value="${p.code}">${p.nombre} — $${Number(p.precio)}/mes (${Number(p.horas_mes)}h)</option>`,
+            )
+            .join("");
+        } catch {
+          logout();
+        }
+      }
+      boot();
+    </script>
+  </body>
+</html>

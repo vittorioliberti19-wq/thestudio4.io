@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — The Studio 4</title>
+    <meta name="robots" content="noindex" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Manrope", sans-serif;
+        background: #0d0d0d;
+        color: #fff;
+        padding: 20px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+      h1 {
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+      h2 {
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #8a8a8a;
+        margin: 22px 0 8px;
+      }
+      .card {
+        background: #141414;
+        border: 1px solid #2c2c2c;
+        padding: 16px;
+        margin-bottom: 14px;
+      }
+      input,
+      select {
+        background: #0a0a0a;
+        border: 1px solid #2c2c2c;
+        color: #fff;
+        padding: 9px 10px;
+        font-size: 13px;
+        margin: 4px 4px 4px 0;
+      }
+      button {
+        background: #fff;
+        color: #000;
+        border: none;
+        padding: 9px 16px;
+        font-weight: 800;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin: 4px 0;
+      }
+      button.sec {
+        background: none;
+        color: #fff;
+        border: 1px solid #2c2c2c;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 12.5px;
+      }
+      td,
+      th {
+        border-bottom: 1px solid #2c2c2c;
+        padding: 6px 4px;
+        text-align: left;
+      }
+      th {
+        color: #8a8a8a;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .msg {
+        font-size: 12px;
+        color: #8fdc9a;
+        min-height: 16px;
+        margin-top: 6px;
+      }
+      .msg.e {
+        color: #ff7b7b;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>THE STUDI&#9210; 4 · ADMIN</h1>
+
+    <div class="card">
+      <h2 style="margin-top: 0">PIN</h2>
+      <input id="pin" type="password" placeholder="PIN admin" class="mono" />
+      <button onclick="loadAll()">Entrar</button>
+      <div class="msg e" id="pinMsg"></div>
+    </div>
+
+    <div id="panel" style="display: none">
+      <div class="card">
+        <h2 style="margin-top: 0">Agregar reserva</h2>
+        <input
+          id="bkEmail"
+          placeholder="correo miembro (vacío = externo)"
+          style="width: 280px"
+        />
+        <input id="bkFecha" type="date" />
+        <select id="bkIni"></select>
+        a
+        <select id="bkFin"></select>
+        <select id="bkTipo">
+          <option value="plan">plan</option>
+          <option value="extra">extra</option>
+        </select>
+        <input id="bkNota" placeholder="nota" style="width: 200px" />
+        <button onclick="addBooking()">Agregar</button>
+        <div class="msg" id="bkMsg"></div>
+        <h2>Día</h2>
+        <input id="dayFecha" type="date" /><button
+          class="sec"
+          onclick="loadDay()"
+        >
+          Ver día
+        </button>
+        <div id="dayList"></div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top: 0">Asignar plan a miembro</h2>
+        <input id="plEmail" placeholder="correo" style="width: 280px" />
+        <select id="plPlan">
+          <option value="">— sin plan —</option>
+          <option value="flash">Flash $80</option>
+          <option value="creator">Creator $120</option>
+          <option value="pro">Pro $210</option>
+          <option value="resident">Resident $380</option>
+          <option value="brandpass">Brand Pass $130</option>
+          <option value="brandpro">Brand Pro $240</option>
+        </select>
+        <label style="font-size: 12px"
+          ><input type="checkbox" id="plActivo" style="width: auto" /> pago
+          activo</label
+        >
+        <button onclick="setPlan()">Guardar</button>
+        <div class="msg" id="plMsg"></div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top: 0">Miembros</h2>
+        <button class="sec" onclick="loadMembers()">Refrescar</button>
+        <div id="membersList"></div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top: 0">Solicitudes de cambio de plan</h2>
+        <button class="sec" onclick="loadRequests()">Refrescar</button>
+        <div id="reqList"></div>
+      </div>
+    </div>
+
+    <script>
+      const API =
+        "https://atxmxihxboswsewdbdgz.supabase.co/functions/v1/studio4";
+      async function api(payload) {
+        payload.pin = document.getElementById("pin").value;
+        const r = await fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.error || "Error");
+        return d;
+      }
+      for (let h = 8; h <= 21; h++) {
+        if (h < 21) bkIni.innerHTML += `<option>${h}</option>`;
+        if (h > 8) bkFin.innerHTML += `<option>${h}</option>`;
+      }
+      bkFin.value = "10";
+      async function loadAll() {
+        try {
+          await api({ action: "admin_list_members" });
+          pinMsg.textContent = "";
+          panel.style.display = "";
+          loadMembers();
+          loadRequests();
+        } catch (e) {
+          pinMsg.textContent = e.message;
+        }
+      }
+      async function addBooking() {
+        try {
+          await api({
+            action: "admin_add_booking",
+            email: bkEmail.value.trim() || null,
+            fecha: bkFecha.value,
+            hora_inicio: +bkIni.value,
+            hora_fin: +bkFin.value,
+            tipo: bkTipo.value,
+            nota: bkNota.value,
+          });
+          bkMsg.textContent = "Reserva agregada.";
+          bkMsg.className = "msg";
+          if (dayFecha.value === bkFecha.value) loadDay();
+        } catch (e) {
+          bkMsg.textContent = e.message;
+          bkMsg.className = "msg e";
+        }
+      }
+      async function loadDay() {
+        const d = await api({ action: "admin_day", fecha: dayFecha.value });
+        dayList.innerHTML =
+          "<table><tr><th>Horas</th><th>Tipo</th><th>Miembro</th><th>Nota</th><th></th></tr>" +
+          d.bookings
+            .map(
+              (b) =>
+                `<tr><td class="mono">${b.hora_inicio}:00–${b.hora_fin}:00</td><td>${b.tipo}</td><td>${b.email ?? "externo"}</td><td>${b.nota ?? ""}</td><td><button class="sec" onclick="delBooking('${b.id}')">X</button></td></tr>`,
+            )
+            .join("") +
+          "</table>";
+      }
+      async function delBooking(id) {
+        await api({ action: "admin_del_booking", id });
+        loadDay();
+      }
+      async function setPlan() {
+        try {
+          await api({
+            action: "admin_set_plan",
+            email: plEmail.value,
+            plan_code: plPlan.value || null,
+            plan_activo: plActivo.checked,
+          });
+          plMsg.textContent = "Guardado.";
+          plMsg.className = "msg";
+          loadMembers();
+        } catch (e) {
+          plMsg.textContent = e.message;
+          plMsg.className = "msg e";
+        }
+      }
+      async function loadMembers() {
+        const d = await api({ action: "admin_list_members" });
+        membersList.innerHTML =
+          "<table><tr><th>Correo</th><th>Nombre</th><th>Teléfono</th><th>Plan</th><th>Activo</th></tr>" +
+          d.members
+            .map(
+              (m) =>
+                `<tr><td>${m.email}</td><td>${m.nombre ?? ""}</td><td>${m.telefono ?? ""}</td><td>${m.plan_code ?? "—"}</td><td>${m.plan_activo ? "✓" : "✗"}</td></tr>`,
+            )
+            .join("") +
+          "</table>";
+      }
+      async function loadRequests() {
+        const d = await api({ action: "admin_requests" });
+        reqList.innerHTML = d.requests.length
+          ? "<table><tr><th>Miembro</th><th>De</th><th>A</th><th>Fecha</th></tr>" +
+            d.requests
+              .map(
+                (r) =>
+                  `<tr><td>${r.email}</td><td>${r.plan_actual ?? "—"}</td><td>${r.plan_nuevo}</td><td class="mono">${String(r.created_at).slice(0, 10)}</td></tr>`,
+              )
+              .join("") +
+            "</table>"
+          : "<div class='msg'>Sin solicitudes pendientes.</div>";
+      }
+    </script>
+  </body>
+</html>
