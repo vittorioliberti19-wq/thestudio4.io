@@ -14,6 +14,37 @@ const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, {
   max: 2,
 });
 
+// ---------- correos brandeados The Studio 4 ----------
+function brandedEmail(titulo: string, cuerpo: string) {
+  return `<div style="background:#f4f4f4;padding:24px 0;font-family:Helvetica,Arial,sans-serif">
+  <div style="max-width:460px;margin:auto;background:#ffffff;border:1px solid #e5e5e5">
+    <div style="background:#0d0d0d;padding:22px;text-align:center">
+      <img src="https://thestudio4.io/app/logo-white.png" alt="The Studio 4" width="200" style="display:inline-block">
+    </div>
+    <div style="padding:26px 28px;color:#111">
+      <h2 style="margin:0 0 12px;font-size:17px;letter-spacing:.5px">${titulo}</h2>
+      ${cuerpo}
+    </div>
+    <div style="padding:14px;text-align:center;border-top:1px solid #eee;color:#999;font-size:11px;letter-spacing:1px">
+      THE STUDIO 4 · TORRE DELTA, AV. BELLA VISTA, MARACAIBO<br>
+      <a href="https://thestudio4.io/app/" style="color:#555">thestudio4.io/app</a> · WhatsApp +58 424-641-7634
+    </div>
+  </div></div>`;
+}
+async function sendMail(to: string, subject: string, titulo: string, cuerpo: string) {
+  if (!RESEND_KEY) return false;
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: OTP_FROM, to: [to], subject, html: brandedEmail(titulo, cuerpo) }),
+    });
+    return r.ok;
+  } catch (_) {
+    return false;
+  }
+}
+
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, content-type",
@@ -206,20 +237,15 @@ Deno.serve(async (req) => {
         const codeHash = await sha256(code);
         await sql`insert into studio4.otp_codes (email, code_hash, expires_at)
           values (${email}, ${codeHash}, now() + interval '10 minutes')`;
-        const r = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${RESEND_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: OTP_FROM,
-            to: [email],
-            subject: `Tu código The Studio 4: ${code}`,
-            html: `<div style="font-family:sans-serif;max-width:420px;margin:auto;padding:24px;border:1px solid #ddd"><h2 style="letter-spacing:2px">THE STUDIO 4</h2><p>Tu código para restablecer la clave:</p><p style="font-size:34px;font-weight:800;letter-spacing:8px">${code}</p><p style="color:#666;font-size:12px">Vence en 10 minutos. Si no lo pediste, ignora este correo.</p></div>`,
-          }),
-        });
-        if (!r.ok) return json({ error: "No se pudo enviar el correo" }, 502);
+        const ok = await sendMail(
+          email,
+          `Tu código The Studio 4: ${code}`,
+          "Restablecer tu clave",
+          `<p>Tu código de verificación:</p>
+           <p style="font-size:34px;font-weight:800;letter-spacing:8px;margin:10px 0">${code}</p>
+           <p style="color:#666;font-size:12px">Vence en 10 minutos. Si no lo pediste, ignora este correo.</p>`,
+        );
+        if (!ok) return json({ error: "No se pudo enviar el correo" }, 502);
       }
       return json({ ok: true });
     }
@@ -291,10 +317,33 @@ Deno.serve(async (req) => {
         const nota = String(body.nota ?? "").slice(0, 200) || null;
         await sql`insert into studio4.bookings (member_id, fecha, hora_inicio, hora_fin, tipo, nota)
           values (${memberId}, ${fecha}, ${Number(body.hora_inicio)}, ${Number(body.hora_fin)}, ${tipo}, ${nota})`;
+        if (memberId) {
+          sendMail(
+            String(body.email).toLowerCase(),
+            `Reserva confirmada · ${fecha}`,
+            "Reserva confirmada",
+            `<p>Tu estudio está reservado:</p>
+             <p style="font-size:20px;font-weight:800">${fecha} · ${Number(body.hora_inicio)}:00–${Number(body.hora_fin)}:00</p>
+             <p>Revisa tus horas disponibles en <a href="https://thestudio4.io/app/">tu portal</a>.</p>`,
+          );
+        }
         return json({ ok: true });
       }
       if (action === "admin_del_booking") {
+        const b = await sql`select b.fecha, b.hora_inicio, b.hora_fin, m.email
+          from studio4.bookings b left join studio4.members m on m.id = b.member_id
+          where b.id = ${String(body.id)}`;
         await sql`delete from studio4.bookings where id = ${String(body.id)}`;
+        if (b.length && b[0].email) {
+          const f = String(b[0].fecha).slice(0, 10);
+          sendMail(
+            b[0].email,
+            `Reserva cancelada · ${f}`,
+            "Reserva cancelada",
+            `<p>Tu reserva del <b>${f} · ${b[0].hora_inicio}:00–${b[0].hora_fin}:00</b> fue cancelada.</p>
+             <p>Las horas vuelven a tu disponible del mes. Cualquier duda, escríbenos por WhatsApp.</p>`,
+          );
+        }
         return json({ ok: true });
       }
       if (action === "admin_day") {
@@ -316,6 +365,28 @@ Deno.serve(async (req) => {
         return json({ requests });
       }
       return json({ error: "Acción admin desconocida" }, 400);
+    }
+
+    if (action === "cron_quincena") {
+      if (!(await adminRole(String(body.pin ?? "")))) return json({ error: "PIN incorrecto" }, 401);
+      const members = await sql`select m.id, m.email, m.nombre, p.nombre as plan_nombre, p.horas_mes
+        from studio4.members m join studio4.plans p on p.code = m.plan_code
+        where m.plan_activo`;
+      let enviados = 0;
+      for (const m of members) {
+        const { usadas } = await monthUsage(m.id);
+        const disp = Math.max(0, Number(m.horas_mes) - usadas);
+        const ok = await sendMail(
+          m.email,
+          `Tienes ${disp}h disponibles este mes · The Studio 4`,
+          `Hola, ${m.nombre ? m.nombre.split(" ")[0] : ""}`,
+          `<p>Resumen de tu plan <b>${m.plan_nombre}</b>:</p>
+           <p style="font-size:20px;font-weight:800">${disp} de ${Number(m.horas_mes)} horas disponibles</p>
+           <p>Reserva directo desde <a href="https://thestudio4.io/app/">tu portal</a> o por WhatsApp.</p>`,
+        );
+        if (ok) enviados++;
+      }
+      return json({ ok: true, enviados, total: members.length });
     }
 
     // ---------- autenticado ----------
@@ -395,6 +466,15 @@ Deno.serve(async (req) => {
       }
       await sql`insert into studio4.bookings (member_id, fecha, hora_inicio, hora_fin, tipo, nota)
         values (${member.id}, ${fecha}, ${ini}, ${fin}, 'plan', 'reserva web')`;
+      const restantes = Number(plan[0].horas_mes) - usadas - dur;
+      sendMail(
+        member.email,
+        `Reserva confirmada · ${fecha}`,
+        "Reserva confirmada",
+        `<p>Tu estudio está reservado:</p>
+         <p style="font-size:20px;font-weight:800">${fecha} · ${ini}:00–${fin}:00</p>
+         <p>Te quedan <b>${restantes}h</b> disponibles de tu plan este mes.</p>`,
+      );
       return json({ ok: true });
     }
 
