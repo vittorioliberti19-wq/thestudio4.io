@@ -419,6 +419,12 @@
         if (!r.ok) throw new Error(data.error || "Error");
         return data;
       }
+      const qTipo = new URLSearchParams(location.search).get("tipo");
+      if (qTipo === "fotografo" || qTipo === "marca") {
+        rgTipo.value = qTipo;
+        rgTipo.style.display = "none";
+        rgTipo.previousElementSibling.style.display = "none";
+      }
       function show(id) {
         for (const b of ["loginBox", "regBox", "otpBox"])
           document.getElementById(b).style.display = b === id ? "" : "none";
@@ -646,6 +652,7 @@
           logout();
         }
       }
+      if (!token && (qTipo === "fotografo" || qTipo === "marca")) show("regBox");
       boot();
     </script>
   </body>

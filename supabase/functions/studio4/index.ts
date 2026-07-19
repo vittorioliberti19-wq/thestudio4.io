@@ -255,6 +255,15 @@ Deno.serve(async (req) => {
           from studio4.members order by created_at`;
         return json({ members });
       }
+      if (action === "admin_set_active") {
+        const email = String(body.email ?? "").toLowerCase();
+        const activo = !!body.plan_activo;
+        const r = await sql`update studio4.members set plan_activo = ${activo}
+          where lower(email) = ${email} returning id`;
+        return r.length
+          ? json({ ok: true })
+          : json({ error: "Miembro no encontrado" }, 404);
+      }
       if (action === "admin_set_plan") {
         const email = String(body.email ?? "").toLowerCase();
         const plan = body.plan_code ? String(body.plan_code) : null;

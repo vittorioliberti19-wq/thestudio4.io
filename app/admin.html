@@ -139,6 +139,16 @@
       </div>
 
       <div class="card">
+        <h2 style="margin-top: 0">
+          Activar suscripción (pago Zelle reportado por WhatsApp)
+        </h2>
+        <input id="acEmail" placeholder="correo del miembro" style="width: 280px" />
+        <button onclick="setActive(true)">Activar mes</button>
+        <button class="sec" onclick="setActive(false)">Desactivar</button>
+        <div class="msg" id="acMsg"></div>
+      </div>
+
+      <div class="card">
         <h2 style="margin-top: 0">Asignar plan a miembro</h2>
         <input id="plEmail" placeholder="correo" style="width: 280px" />
         <select id="plPlan">
@@ -236,6 +246,17 @@
       async function delBooking(id) {
         await api({ action: "admin_del_booking", id });
         loadDay();
+      }
+      async function setActive(activo) {
+        try {
+          await api({ action: "admin_set_active", email: acEmail.value, plan_activo: activo });
+          acMsg.textContent = activo ? "Suscripción activada." : "Suscripción desactivada.";
+          acMsg.className = "msg";
+          loadMembers();
+        } catch (e) {
+          acMsg.textContent = e.message;
+          acMsg.className = "msg e";
+        }
       }
       async function setPlan() {
         try {
