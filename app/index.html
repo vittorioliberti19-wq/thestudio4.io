@@ -549,14 +549,18 @@
           const cards = plansCache
             .filter((p) => p.categoria === cat)
             .map((p) => {
-              const link = p.payment_link
-                ? `${p.payment_link}${p.payment_link.includes("?") ? "&" : "?"}prefilled_email=${encodeURIComponent(d.member.email || "")}`
+              const safeLink =
+                p.payment_link && /^https:\/\//.test(p.payment_link)
+                  ? p.payment_link
+                  : null;
+              const link = safeLink
+                ? `${safeLink}${safeLink.includes("?") ? "&" : "?"}prefilled_email=${encodeURIComponent(d.member.email || "")}`
                 : `https://wa.me/584246417634?text=${encodeURIComponent(`Hola! Quiero suscribirme al plan ${p.nombre} de The Studio 4`)}`;
               return `<div class="kpi" style="text-align:left;padding:14px">
         <div style="font-size:12px;letter-spacing:2px;color:#8a8a8a">${esc(p.nombre).toUpperCase()}</div>
         <div class="v" style="margin:6px 0">$${Number(p.precio)}<span style="font-size:12px;color:#8a8a8a">/mes</span></div>
-        <div class="muted" style="font-size:12px;line-height:1.7">${Number(p.horas_mes)}h al mes · L-V 8am-5pm<br>Hora extra $${p.extra_rate ?? "-"} · Noche/finde/feriado $${p.offpeak_rate ?? "-"}/h</div>
-        <a class="plan-cta" style="display:block;text-align:center;margin-top:10px" href="${link}" target="_blank">Suscribirme</a>
+        <div class="muted" style="font-size:12px;line-height:1.7">${Number(p.horas_mes)}h al mes · L-V 8am-5pm<br>Hora extra $${Number(p.extra_rate) || "-"} · Noche/finde/feriado $${Number(p.offpeak_rate) || "-"}/h</div>
+        <a class="plan-cta" style="display:block;text-align:center;margin-top:10px" href="${esc(link)}" target="_blank" rel="noopener">Suscribirme</a>
       </div>`;
             })
             .join("");
@@ -570,9 +574,10 @@
           usadas = d.usadas,
           disp = d.disponibles;
         const pct = Math.min(100, Math.round((usadas / total) * 100));
-        const pago = d.plan.payment_link
-          ? `<a class="plan-cta" href="${d.plan.payment_link}" target="_blank">Gestionar pago</a>`
-          : `<div class="muted" style="margin-top:10px">Pago automatizado: Stripe o Zelle programado (coordinado con el estudio).</div>`;
+        const pago =
+          d.plan.payment_link && /^https:\/\//.test(d.plan.payment_link)
+            ? `<a class="plan-cta" href="${esc(d.plan.payment_link)}" target="_blank" rel="noopener">Gestionar pago</a>`
+            : `<div class="muted" style="margin-top:10px">Pago automatizado: Stripe o Zelle programado (coordinado con el estudio).</div>`;
         const estado = d.member.plan_activo
           ? ""
           : ` <span style="color:#ffb46b;font-size:12px">(pago pendiente de activación)</span>`;
