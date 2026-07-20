@@ -545,9 +545,25 @@
           d.member.nombre ? d.member.nombre.split(" ")[0] : d.member.email,
         );
         if (!d.plan) {
+          const cat = d.member.tipo === "marca" ? "brand" : "foto";
+          const cards = plansCache
+            .filter((p) => p.categoria === cat)
+            .map((p) => {
+              const link = p.payment_link
+                ? `${p.payment_link}${p.payment_link.includes("?") ? "&" : "?"}prefilled_email=${encodeURIComponent(d.member.email || "")}`
+                : `https://wa.me/584246417634?text=${encodeURIComponent(`Hola! Quiero suscribirme al plan ${p.nombre} de The Studio 4`)}`;
+              return `<div class="kpi" style="text-align:left;padding:14px">
+        <div style="font-size:12px;letter-spacing:2px;color:#8a8a8a">${esc(p.nombre).toUpperCase()}</div>
+        <div class="v" style="margin:6px 0">$${Number(p.precio)}<span style="font-size:12px;color:#8a8a8a">/mes</span></div>
+        <div class="muted" style="font-size:12px;line-height:1.7">${Number(p.horas_mes)}h al mes · L-V 8am-5pm<br>Hora extra $${p.extra_rate ?? "-"} · Noche/finde/feriado $${p.offpeak_rate ?? "-"}/h</div>
+        <a class="plan-cta" style="display:block;text-align:center;margin-top:10px" href="${link}" target="_blank">Suscribirme</a>
+      </div>`;
+            })
+            .join("");
           el.innerHTML = `<h1>Hola, ${nombre}</h1>
-      <div class="muted" style="margin:8px 0 4px">Aún no tienes una membresía activa. Elige tu plan y escríbenos:</div>
-      <a class="plan-cta" href="https://wa.me/584246417634?text=Hola!%20Quiero%20activar%20mi%20membres%C3%ADa%20The%20Studio%204">Activar membresía</a>`;
+      <div class="muted" style="margin:8px 0 12px">Aún no tienes una membresía activa. Elige tu plan y suscríbete — al confirmar tu pago el estudio activa tu cuenta:</div>
+      <div class="kpis" style="align-items:stretch">${cards}</div>
+      <div class="muted" style="margin-top:12px">¿Prefieres Zelle programado? <a href="https://wa.me/584246417634?text=Hola!%20Quiero%20activar%20mi%20membres%C3%ADa%20The%20Studio%204%20con%20Zelle" style="color:#fff">Escríbenos por WhatsApp</a>.</div>`;
           return;
         }
         const total = Number(d.plan.horas_mes),
@@ -570,7 +586,7 @@
       <div class="kpi"><div class="v">${usadas}</div><div class="l">Horas usadas</div></div>
       <div class="kpi"><div class="v">${total}</div><div class="l">Horas del plan</div></div>
       <div class="kpi"><div class="v">$${d.plan.extra_rate ?? "-"}</div><div class="l">Hora extra</div></div>
-      <div class="kpi"><div class="v">$${d.plan.offpeak_rate ?? "-"}</div><div class="l">Noche/finde</div></div>
+      <div class="kpi"><div class="v">$${d.plan.offpeak_rate ?? "-"}</div><div class="l">Noche/finde/feriado</div></div>
     </div>
     <div class="bar"><i style="width:${pct}%"></i></div>
     ${pago}${sol}`;
@@ -714,12 +730,12 @@
         }
         try {
           const d = await api({ action: "me" });
+          if (!plansCache.length)
+            plansCache = (await api({ action: "plans" }, false)).plans;
           setView(true);
           renderPlan(d);
           renderMias(d);
           loadCalendar();
-          if (!plansCache.length)
-            plansCache = (await api({ action: "plans" }, false)).plans;
           const cat = d.member.tipo === "marca" ? "brand" : "foto";
           chPlan.innerHTML = plansCache
             .filter((p) => p.categoria === cat)
