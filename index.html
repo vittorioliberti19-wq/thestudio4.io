@@ -106,22 +106,29 @@
     <link rel="apple-touch-icon" href="logo.png" />
 
     <!-- Performance: preconnect + preload -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="preload" as="image" href="logo.png" fetchpriority="high" />
 
     <!-- Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="fonts/montserrat-var-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link rel="stylesheet" href="fonts/fonts.css" />
 
     <!-- Tailwind (compiled, minified) -->
     <link rel="stylesheet" href="tailwind.css" />
 
-    <!-- Lenis smooth scroll -->
-    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <!-- Lenis smooth scroll (defer: no debe bloquear el primer pintado) -->
+    <script
+      defer
+      src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"
+      integrity="sha384-eD5ubmuCcvTdCADWuSchJYE7wcj2nzNr0itbrh6w/KJyBiltSZ8w3VFRBSWu5YQ8"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -3445,13 +3452,21 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script>
-      // Lenis smooth scroll
-      const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-      function raf(time) {
-        lenis.raf(time);
+      // Lenis smooth scroll. El script externo va con defer para no bloquear
+      // el pintado, así que aún no existe cuando corre este inline: se
+      // inicializa en DOMContentLoaded. `var` (no `const`) para que los
+      // guardas `typeof lenis !== "undefined"` de más abajo sigan funcionando
+      // mientras tanto en vez de lanzar ReferenceError por TDZ.
+      var lenis;
+      window.addEventListener("DOMContentLoaded", function () {
+        if (typeof Lenis === "undefined") return; // sin CDN: scroll nativo
+        lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+      });
 
       // Smooth-scroll on nav anchors
       document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -3461,7 +3476,8 @@
             const t = document.querySelector(id);
             if (t) {
               e.preventDefault();
-              lenis.scrollTo(t, { offset: -20 });
+              if (lenis) lenis.scrollTo(t, { offset: -20 });
+              else t.scrollIntoView({ behavior: "smooth", block: "start" });
             }
           }
         });
