@@ -4,9 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://thestudio4.io/</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-08-12</lastmod>
     <xhtml:link rel="alternate" hreflang="es-ve" href="https://thestudio4.io/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://thestudio4.io/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://thestudio4.io/" />
@@ -33,69 +31,47 @@
     </image:image>
   </url>
   <url>
-    <loc>https://thestudio4.io/#servicios</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://thestudio4.io/#galeria</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://thestudio4.io/galeria.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/servicios/</loc>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://thestudio4.io/servicios/fotografia-producto.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://thestudio4.io/servicios/video-corporativo.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://thestudio4.io/servicios/sesion-editorial.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://thestudio4.io/blog/</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://thestudio4.io/blog/como-elegir-estudio-fotografico-maracaibo.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
-    <loc>https://thestudio4.io/#equipo</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://thestudio4.io/blog/cuanto-cuesta-alquilar-estudio-fotografico-maracaibo.html</loc>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
-    <loc>https://thestudio4.io/#reservar</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://thestudio4.io/blog/como-preparar-sesion-fotos-producto.html</loc>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
-    <loc>https://thestudio4.io/#contacto</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://thestudio4.io/blog/ciclograma-vs-fondo-de-papel.html</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://thestudio4.io/blog/que-necesitas-para-grabar-video-corporativo.html</loc>
+    <lastmod>2026-08-12</lastmod>
   </url>
 </urlset>
