@@ -1,0 +1,10 @@
+# GitHub Pages: no publicar código fuente ni archivos de desarrollo.
+# Al definir exclude se reemplaza la lista por defecto de Jekyll, por eso se repiten node_modules/vendor/Gemfile.
+exclude:
+  - supabase
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
